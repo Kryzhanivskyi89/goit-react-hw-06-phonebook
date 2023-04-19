@@ -22,14 +22,7 @@ const App = () => {
 
     const form = event.target;
     const { name, number } = form.elements;
-    // if (contacts.find(contact => contact.name === name.value)) {
-    //   Notiflix.warning(
-    //     'Phonebook Warning',
-    //     'The contact already exists with this name',
-    //     'Okay'
-    //   );
-    //   return;
-    // }
+    
     const contact = {
       name: name.value,
       number: number.value,
@@ -50,8 +43,8 @@ const App = () => {
 
   const deleteContact = (id) => {
     dispatch(deleteContactList(id));
-     if (contacts.length === 1) {
-      Notiflix.warning('Contact book is empty!');
+    if (contacts.length === 1) {
+      (Notiflix.Notify.warning('Contact book is empty!'));      
     }
   };
 
@@ -73,8 +66,8 @@ const App = () => {
         {contacts.length > 1 &&
           (<Filter value={FiltersList} onChange={inputFilter} />)
         }
-        {contacts.length > 0 && (<ContactList contacts={visibleContact()} deleteContact={deleteContact} />) 
-          // ( Notiflix.Notify.warning('Contact book is empty!'))
+        {contacts.length > 0 &&
+          (<ContactList contacts={visibleContact()} deleteContact={deleteContact} />) 
         }                    
       </ContactElem>
     </>
