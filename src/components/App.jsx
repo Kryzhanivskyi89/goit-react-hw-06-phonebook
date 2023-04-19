@@ -22,7 +22,13 @@ const App = () => {
 
     const form = event.target;
     const { name, number } = form.elements;
-    
+
+    if (contacts.find(contact =>
+      contact.name.toLowerCase() === name.value.toLowerCase())
+      ) {
+      alert('The contact already exists with this name');
+    return;
+    }
     const contact = {
       name: name.value,
       number: number.value,
@@ -30,14 +36,6 @@ const App = () => {
     };
 
     dispatch(createContact(contact));
-    
-    if (contacts.find(contact =>
-      contact.name.toLowerCase() === name.value.toLowerCase())
-      ) {
-      alert('The contact already exists with this name');
-    return;
-    }
-
     form.reset();
   };
 
