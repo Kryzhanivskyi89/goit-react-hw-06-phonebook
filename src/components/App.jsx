@@ -1,10 +1,10 @@
 // import Notiflix from 'notiflix';
 // import { nanoid } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import {
-  // createContact,
-  // createFilter,
-  // deleteContactList,
+// createContact,
+// createFilter,
+// deleteContactList,
 // } from 'redux/contacts/contactsReducer';
 
 import ContactElem from "./ContactElem/ContactElem";
@@ -12,11 +12,11 @@ import ContactForm from './ContactForm/ContactForm';
 import Filter from "./Filter/Filter";
 import ContactList from "./ContactList/ContactList";
 
-const App = () => {   
-  
+const App = () => {
+
   const { contacts, FiltersList } = useSelector(state => state.contacts);
   // const dispatch = useDispatch();
-  
+
   // const addContact = event => {
   //   event.preventDefault();
 
@@ -38,17 +38,17 @@ const App = () => {
   //   dispatch(createContact(contact));
   //   form.reset();
   // };
-  
+
 
   // const inputFilter = (event) => {
   //   dispatch(createFilter(event.target.value));
   // };
 
-  const visibleContact = () => {    
+  const visibleContact = () => {
     const normalizeFilter = FiltersList.toLowerCase();
     return contacts.filter(contact => contact.name.toLowerCase().includes(normalizeFilter));
   }
-   
+
   return (
     <>
       <ContactElem title="Phonebook">
@@ -56,11 +56,11 @@ const App = () => {
       </ContactElem>
       <ContactElem title="Contacts">
         {contacts.length > 1 &&
-          (<Filter value={FiltersList}  />)
+          (<Filter value={FiltersList} />)
         }
         {contacts.length > 0 &&
-          (<ContactList contacts={visibleContact()}  />) 
-        }                    
+          (<ContactList contacts={visibleContact()} />)
+        }
       </ContactElem>
     </>
   );
