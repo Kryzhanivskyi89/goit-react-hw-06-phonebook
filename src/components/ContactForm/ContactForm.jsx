@@ -1,11 +1,40 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { nanoid } from '@reduxjs/toolkit';
+import { useDispatch, useSelector} from 'react-redux';
+import {createContact} from 'redux/contacts/contactsReducer';
 
 import style from './ContactForm.module.css';
 
-const ContactForm = ({ onSubmit }) => {    
+
+const ContactForm = () => {    
+
+    const dispatch = useDispatch();  
+    const { contacts } = useSelector(state => state.contacts);
+
+    const addContact = event => {
+        event.preventDefault();
+
+        const form = event.target;
+        const { name, number } = form.elements;
+
+        if (contacts.find(contact =>
+        contact.name.toLowerCase() === name.value.toLowerCase())
+        ) {
+            alert('The contact already exists with this name');
+            return;
+        }
+        const contact = {
+            name: name.value,
+            number: number.value,
+            id: nanoid(),      
+        };
+
+        dispatch(createContact(contact));
+        form.reset();
+    };
+
 return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={addContact}>
         <label className={style.title}>Name
             <input className={style.input}
                 type="text"
@@ -30,10 +59,6 @@ return (
             </button>
     </form>
     );
-};
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };
 
 export default ContactForm;
